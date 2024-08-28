@@ -2,7 +2,6 @@ import { Button, Form, Input, Modal, Radio, Select, message } from "antd";
 import { useFetchProject, useFetchUser } from "hooks/useRedux";
 import { useEffect } from "react";
 import { common } from "utils/common";
-
 import { request } from "utils/request";
 
 const layout = {
@@ -15,7 +14,7 @@ const layout = {
 };
 
 export default function ProjectDetail({ title, idx, isOpen, close }) {
-  const [form] = Form.useForm();
+  const [detailProjectform] = Form.useForm();
   const { projectInfo } = useFetchProject();
   const [messageApi, contextHolder] = message.useMessage();
   const { userData } = useFetchUser();
@@ -23,13 +22,13 @@ export default function ProjectDetail({ title, idx, isOpen, close }) {
   const successMessage = () => {
     messageApi.open({
       type: "success",
-      content: `${projectInfo.projectName} 수정에 성공하였습니다.`,
+      content: `${projectInfo.name} 수정에 성공하였습니다.`,
     });
   };
   const errorMessage = () => {
     messageApi.open({
       type: "error",
-      content: `${projectInfo.projectName} 수정에 실패하였습니다.`,
+      content: `${projectInfo.name} 수정에 실패하였습니다.`,
     });
   };
 
@@ -38,9 +37,8 @@ export default function ProjectDetail({ title, idx, isOpen, close }) {
 
     const reqBody = {
       id: `${idx}`,
-      owner: +owner.id,
-      ownerName: values.ownerName,
-      projectName: values.projectName,
+      userId: +owner.id,
+      name: values.name,
       description: values.description ?? "",
       status: values.status,
     };
@@ -57,9 +55,11 @@ export default function ProjectDetail({ title, idx, isOpen, close }) {
 
   useEffect(() => {
     if (isOpen) {
-      form.setFieldsValue({
-        projectName: projectInfo.projectName,
-        ownerName: projectInfo.ownerName,
+      const findOwnerName = userData.find((v) => +v.id === projectInfo.userId);
+
+      detailProjectform.setFieldsValue({
+        name: projectInfo.name,
+        ownerName: findOwnerName.name,
         description: projectInfo.description,
         status: projectInfo.status,
       });
@@ -72,8 +72,8 @@ export default function ProjectDetail({ title, idx, isOpen, close }) {
       {contextHolder}
       <Modal title={title} open={isOpen} footer={() => null} onCancel={close}>
         <Form
-          name="basic"
-          form={form}
+          name="projectDetail"
+          form={detailProjectform}
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
@@ -83,8 +83,8 @@ export default function ProjectDetail({ title, idx, isOpen, close }) {
           autoComplete="off"
         >
           <Form.Item
-            label="projectName"
-            name="projectName"
+            label="name"
+            name="name"
             rules={[
               {
                 required: true,

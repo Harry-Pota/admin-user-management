@@ -15,7 +15,7 @@ const layout = {
 };
 
 export default function CreateModal({ title, isOpen, close }) {
-  const [form] = Form.useForm();
+  const [creatUserform] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const { userData, getUserList } = useFetchUser();
 
@@ -38,9 +38,8 @@ export default function CreateModal({ title, isOpen, close }) {
 
     const reqBody = {
       id: `${Number(latestIdx) + 1}`,
-      owner: +owner.id,
-      ownerName: values.ownerName,
-      projectName: values.projectName,
+      userId: +owner.id,
+      name: values.name,
       description: values.description ?? "",
       status: values.status,
     };
@@ -49,7 +48,7 @@ export default function CreateModal({ title, isOpen, close }) {
 
     if (res.ok) {
       successMessage(values);
-      form.resetFields();
+      creatUserform.resetFields();
       close();
     } else {
       errorMessage();
@@ -69,8 +68,8 @@ export default function CreateModal({ title, isOpen, close }) {
       {contextHolder}
       <Modal title={title} open={isOpen} footer={() => null} onCancel={close}>
         <Form
-          name="basic"
-          form={form}
+          name="create project"
+          form={creatUserform}
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
@@ -80,8 +79,8 @@ export default function CreateModal({ title, isOpen, close }) {
           autoComplete="off"
         >
           <Form.Item
-            label="projectName"
-            name="projectName"
+            label="name"
+            name="name"
             rules={[
               {
                 required: true,

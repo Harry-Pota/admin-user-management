@@ -13,7 +13,7 @@ const layout = {
 };
 
 export default function UserDetail({ title, idx, isOpen, close }) {
-  const [form] = Form.useForm();
+  const [detailUserForm] = Form.useForm();
   const { userInfo } = useFetchUser();
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -49,7 +49,7 @@ export default function UserDetail({ title, idx, isOpen, close }) {
 
   useEffect(() => {
     if (isOpen) {
-      form.setFieldsValue({
+      detailUserForm.setFieldsValue({
         name: userInfo.name,
         email: userInfo.email,
       });
@@ -62,8 +62,8 @@ export default function UserDetail({ title, idx, isOpen, close }) {
       {contextHolder}
       <Modal title={title} open={isOpen} footer={() => null} onCancel={close}>
         <Form
-          name="basic"
-          form={form}
+          name="userDetail"
+          form={detailUserForm}
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}

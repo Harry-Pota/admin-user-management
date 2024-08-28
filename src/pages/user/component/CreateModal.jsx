@@ -12,7 +12,7 @@ const layout = {
 };
 
 export default function CreateModal({ title, isOpen, close }) {
-  const [form] = Form.useForm();
+  const [createUserform] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
   const successMessage = ({ name }) => {
@@ -39,7 +39,7 @@ export default function CreateModal({ title, isOpen, close }) {
 
     if (res.ok) {
       successMessage(values);
-      form.resetFields();
+      createUserform.resetFields();
       close();
     } else {
       errorMessage();
@@ -52,8 +52,8 @@ export default function CreateModal({ title, isOpen, close }) {
       {contextHolder}
       <Modal title={title} open={isOpen} footer={() => null} onCancel={close}>
         <Form
-          name="basic"
-          form={form}
+          name="create user"
+          form={createUserform}
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}

@@ -34,16 +34,11 @@ export default function ProjectList() {
 
   const columns = [
     {
-      title: "projectName",
-      dataIndex: "projectName",
-      key: "projectName",
+      title: "name",
+      dataIndex: "name",
+      key: "name",
     },
-    {
-      title: "ownerName",
-      dataIndex: "ownerName",
-      key: "owner",
-      sorter: (a, b) => a.owner - b.owner,
-    },
+
     {
       title: "description",
       dataIndex: "description",

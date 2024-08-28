@@ -24,33 +24,29 @@
   "projects": [
     {
       "id": "1",
-      "owner": 1,
-      "ownerName": "John Doe",
-      "projectName": "Project Alpha",
+      "userId": 1,
+      "name": "Project Alpha",
       "description": "Description for Project Alpha",
       "status": "Active"
     },
     {
       "id": "2",
-      "owner": 1,
-      "ownerName": "John Doe",
-      "projectName": "Project Beta",
+      "userId": 1,
+      "name": "Project Beta",
       "description": "Description for Project Beta",
       "status": "Completed"
     },
     {
       "id": "3",
-      "owner": 2,
-      "ownerName": "Jane Smith",
-      "projectName": "Project Gamma",
+      "userId": 2,
+      "name": "Project Gamma",
       "description": "Description for Project Gamma",
       "status": "Active"
     },
     {
       "id": "4",
-      "owner": 3,
-      "ownerName": "Sam Johnson",
-      "projectName": "Project Delta",
+      "userId": 3,
+      "name": "Project Delta",
       "description": "Description for Project Delta",
       "status": "Inactive"
     }
